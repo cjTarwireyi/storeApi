@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace store.DataLayer.Services
 {
-    public class ProductService
+    public class ProductService: IProductService
     {
         public List<Product> GetProducts()
         {

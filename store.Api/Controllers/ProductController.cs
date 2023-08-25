@@ -8,11 +8,16 @@ namespace store.Api.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        private readonly IProductService _service;
+
+        public ProductController(IProductService service)
+        {
+            _service = service;
+        }
         [HttpGet]
         public ActionResult GetProducts()
         {
-            ProductService productService = new ProductService();
-            return Ok(productService.GetProducts());
+            return Ok(_service.GetProducts());
         }
     }
 }
