@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using store.Api.Contracts;
 using store.DataLayer.Services;
 
-namespace store.Api.Controllers
+namespace store.Api.Controllers.V1
 {
-    [Route("api/[controller]")]
+    [Route(ApiRoutes.Products.GetAll)]
     [ApiController]
     public class ProductController : ControllerBase
     {

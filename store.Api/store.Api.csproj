@@ -14,4 +14,8 @@
     <ProjectReference Include="..\store.DataLayer\store.DataLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>
