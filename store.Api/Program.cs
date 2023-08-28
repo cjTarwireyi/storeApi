@@ -9,29 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-//    (c =>
-//{
-//    c.SwaggerDoc("V1", new OpenApiInfo
-//    {
-//        Title = "Store API",
-//        Description = "An ASP.Net Api that enables you to work with retail stoere data",
-//        Contact = new OpenApiContact
-//        {
-//            Name = "Cornelious Tarwireyi",
-//            Email = "cornelioustarwireyi@gmail.com",
-//        },
-//        License = new OpenApiLicense
-//        {
-//            Name = "MIT License",
-//            Url = new Uri("https://opensource.org/license/mit/")
-//        },
-//        Version = "v1"
-//    });
-//    var xmlFile = $"{Assembly.GetExecutingAssembly().FullName}.xml";
-//    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-//    c.IncludeXmlComments(xmlPath);
-//}).AddSwaggerGen();
+
 
 builder.Services.AddScoped<IProductService, ProductService>();
 
@@ -41,7 +19,15 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
+    //    (c =>
+    //{
+    //    c.RouteTemplate = "/swagger/{documentName}/swagger.json";
+    //});
     app.UseSwaggerUI();
+    //    (c =>
+    //{
+    //    c.SwaggerEndpoint("v1/swagger.json", "Store API"); //originally "./swagger/v1/swagger.json"
+    //}); ;
 }
 app.UseAuthorization();
 
