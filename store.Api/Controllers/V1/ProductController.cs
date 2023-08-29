@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using store.Api.Contracts;
+using store.Api.Contracts.V1.Requests;
+using store.Api.Contracts.V1.Responses;
+using store.DataLayer.Model;
 using store.DataLayer.Services;
 
 namespace store.Api.Controllers.V1
@@ -19,6 +22,47 @@ namespace store.Api.Controllers.V1
         public ActionResult GetProducts()
         {
             return Ok(_service.GetProducts());
+        }
+
+        [HttpGet("{productId}", Name = "GetProduct")]
+        public ActionResult GetProduct( string productId)
+        {
+            var product = _service.GetProduct(productId);
+            if(product == null)
+            {
+                return NoContent();
+            }
+
+            var response = new GetProductResponse
+            {
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                Quantity = product.Quantity,
+            };
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        public ActionResult Create([FromBody] CreateProductRequest productRequest)
+        {
+            var product = new Product
+            {
+                Name = productRequest.Name,
+                Description = productRequest.Description,
+                Price = productRequest.Price,
+                Quantity = productRequest.Quantity,
+                Id = Guid.NewGuid().ToString()
+            };
+
+            _service.AddProduct(product);
+
+            var response = new CreateProductResponse { Id = product.Id };
+
+            var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+            var locationUri = baseUrl + "/" + ApiRoutes.Products.Get.Replace("{productId}", response.Id);
+            return Created(locationUri, response);
         }
     }
 }
