@@ -29,7 +29,7 @@ namespace store.Api.Controllers.V1
             var product = _service.GetProduct(productId);
             if(product == null)
             {
-                return NoContent();
+                return NotFound();
             }
 
             var response = new GetProductResponse
@@ -63,5 +63,28 @@ namespace store.Api.Controllers.V1
             var locationUri = baseUrl + "/" + ApiRoutes.Products.Get.Replace("{productId}", response.Id);
             return Created(locationUri, response);
         }
+
+        [HttpPut]
+        public ActionResult Update([FromRoute] Guid postId, [FromBody] UpdateProductRequest productRequest)
+        {
+            var product = new Product
+            {
+                Name = productRequest.Name,
+                Description = productRequest.Description,
+                Price = productRequest.Price,
+                Quantity = productRequest.Quantity,
+                Id = postId.ToString()
+            };
+
+            var updated =   _service.UpdateProduct(product);
+
+            if (updated)
+            {
+                return Ok(product);
+            }
+            return NotFound();
+        }
+
+
     }
 }

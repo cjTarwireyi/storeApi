@@ -27,13 +27,25 @@ namespace store.DataLayer.Services
 
         public Product GetProduct(string id)
         {
-           return _products.FirstOrDefault(x => x.Id == id);
+            return _products.FirstOrDefault(x => x.Id == id);
         }
 
         public List<Product> GetProducts()
         {
 
             return _products;
+        }
+
+        public bool UpdateProduct(Product product)
+        {
+            if (GetProduct(product.Id) == null)
+            {
+                return false;
+            }
+            var index = _products.FindIndex(i => i.Id == product.Id);
+            _products[index] = product;
+            return true;
+
         }
     }
 }

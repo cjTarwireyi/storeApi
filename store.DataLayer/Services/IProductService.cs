@@ -7,5 +7,6 @@ namespace store.DataLayer.Services
         List<Product> GetProducts();
         Product GetProduct(string id);
         bool AddProduct(Product product);
+        bool UpdateProduct(Product product);
     }
 }
