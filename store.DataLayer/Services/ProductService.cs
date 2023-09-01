@@ -25,7 +25,17 @@ namespace store.DataLayer.Services
             return true;
         }
 
-        public Product GetProduct(string id)
+        public bool DeleteProduct(int id)
+        {
+            var productToDelete = GetProduct(id);
+            if (productToDelete == null)
+            {
+                return false;
+            }
+            return _products.Remove(productToDelete);
+        }
+
+        public Product? GetProduct(string id)
         {
             return _products.FirstOrDefault(x => x.Id == id);
         }
@@ -47,5 +57,7 @@ namespace store.DataLayer.Services
             return true;
 
         }
+
+
     }
 }
