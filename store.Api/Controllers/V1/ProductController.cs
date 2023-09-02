@@ -65,7 +65,7 @@ namespace store.Api.Controllers.V1
         }
 
         [HttpPut]
-        public ActionResult Update([FromRoute] Guid postId, [FromBody] UpdateProductRequest productRequest)
+        public ActionResult Update(string? postId, [FromBody] UpdateProductRequest productRequest)
         {
             var product = new Product
             {
@@ -85,6 +85,12 @@ namespace store.Api.Controllers.V1
             return NotFound();
         }
 
+        [HttpDelete]
+        public ActionResult Delete(string postId)
+        {
+            _service.DeleteProduct(postId.ToString());
+            return NoContent();
+        }
 
     }
 }

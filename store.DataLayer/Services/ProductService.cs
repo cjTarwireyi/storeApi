@@ -25,7 +25,7 @@ namespace store.DataLayer.Services
             return true;
         }
 
-        public bool DeleteProduct(int id)
+        public bool DeleteProduct(string id)
         {
             var productToDelete = GetProduct(id);
             if (productToDelete == null)

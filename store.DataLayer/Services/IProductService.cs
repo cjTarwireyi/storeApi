@@ -8,6 +8,6 @@ namespace store.DataLayer.Services
         Product? GetProduct(string id);
         bool AddProduct(Product product);
         bool UpdateProduct(Product product);
-        bool DeleteProduct(int id);    
+        bool DeleteProduct(string id);    
     }
 }
