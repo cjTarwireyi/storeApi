@@ -10,7 +10,26 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Store API",
+        Description = "An ASP.NET Core Web API for an online store",
+        TermsOfService = new Uri("https://github.com/cjTarwireyi/storeApi"),
+        Contact = new OpenApiContact
+        {
+            Name = "Contact",
+            Url = new Uri("https://github.com/cjTarwireyi/storeApi")
+        },
+        License = new OpenApiLicense
+        {
+            Name = "License",
+            Url = new Uri("https://github.com/cjTarwireyi/storeApi")
+        }
+    });
+});
 builder.Services.AddSingleton<IProductService, ProductService>();
 
 var app = builder.Build();
