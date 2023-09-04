@@ -17,12 +17,21 @@ namespace store.Api.Controllers.V1
         {
             _service = service;
         }
+        /// <summary>
+        /// Gets all Products.
+        /// </summary>
+        /// <returns>All Products</returns>
         [HttpGet]
         public ActionResult GetProducts()
         {
             return Ok(_service.GetProducts());
         }
 
+        /// <summary>
+        /// Gets a specific Product.
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns>Single Product</returns>
         [HttpGet("{productId}", Name = "GetProduct")]
         public ActionResult GetProduct( string productId)
         {
@@ -42,7 +51,11 @@ namespace store.Api.Controllers.V1
 
             return Ok(response);
         }
-
+        /// <summary>
+        /// Creates a specific Product.
+        /// </summary>       
+        /// <param name="productRequest"></param>
+        /// <returns>Created product</returns>
         [HttpPost]
         public ActionResult Create([FromBody] CreateProductRequest productRequest)
         {
@@ -63,9 +76,14 @@ namespace store.Api.Controllers.V1
             var locationUri = baseUrl + "/" + ApiRoutes.Products.Get.Replace("{productId}", response.Id);
             return Created(locationUri, response);
         }
-
+        /// <summary>
+        /// Updates a specific Product.
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <param name="productRequest"></param>
+        /// <returns>updated product</returns>
         [HttpPut]
-        public ActionResult Update(string? postId, [FromBody] UpdateProductRequest productRequest)
+        public ActionResult Update(string productId, [FromBody] UpdateProductRequest productRequest)
         {
             var product = new Product
             {
@@ -73,7 +91,7 @@ namespace store.Api.Controllers.V1
                 Description = productRequest.Description,
                 Price = productRequest.Price,
                 Quantity = productRequest.Quantity,
-                Id = postId.ToString()
+                Id = productId.ToString()
             };
 
             var updated =   _service.UpdateProduct(product);
@@ -85,10 +103,15 @@ namespace store.Api.Controllers.V1
             return NotFound();
         }
 
+        /// <summary>
+        /// Deletes a specific Product.
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns>return no content</returns>
         [HttpDelete]
-        public ActionResult Delete(string postId)
+        public ActionResult Delete(string productId)
         {
-            _service.DeleteProduct(postId.ToString());
+            _service.DeleteProduct(productId.ToString());
             return NoContent();
         }
 
