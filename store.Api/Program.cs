@@ -36,7 +36,7 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddDbContext<StoreDBContext>(dbContext => dbContext.UseSqlite(builder.Configuration["ConnectionStrings:StoreDBConnectionString"]));
+builder.Services.AddDbContext<StoreDBContext>(dbContext => dbContext.UseSqlServer(builder.Configuration["ConnectionStrings:StoreDBConnectionString"]));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
