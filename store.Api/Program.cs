@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using store.Api.Data;
 using store.DataLayer.Services;
 using System.Reflection;
 
@@ -33,8 +35,8 @@ builder.Services.AddSwaggerGen(options =>
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
-builder.Services.AddSingleton<IProductService, ProductService>();
-
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddDbContext<StoreDBContext>(dbContext => dbContext.UseSqlite(builder.Configuration["ConnectionStrings:StoreDBConnectionString"]));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
