@@ -1,8 +1,11 @@
-﻿namespace store.DataLayer.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace store.DataLayer.Model
 {
     public  class Product
     {
-        public string Id { get; set; }
+        [Key]
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }

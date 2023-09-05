@@ -51,6 +51,7 @@ if (app.Environment.IsDevelopment())
     //    c.SwaggerEndpoint("v1/swagger.json", "Store API"); //originally "./swagger/v1/swagger.json"
     //}); ;
 }
+
 app.UseAuthorization();
 
 app.MapControllers();

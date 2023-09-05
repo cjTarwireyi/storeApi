@@ -1,63 +1,54 @@
-﻿using store.DataLayer.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using store.Api.Data;
+using store.DataLayer.Model;
 
 namespace store.DataLayer.Services
 {
     public class ProductService : IProductService
     {
-        private List<Product> _products;
-        public ProductService()
-        {
-            _products = new List<Product>()
-            {
-                new Product() {Id ="1", Name = "iPhone 13 Pro", Description = "The most advanced iPhone ever", Price = 999.99m, Quantity = 10 },
-                new Product() {Id ="2",Name = "Samsung Galaxy S22 Ultra", Description = "The ultimate Android smartphone", Price = 899.99m, Quantity = 5 },
-                new Product() {Id ="3",Name = "MacBook Pro M2", Description = "The most powerful MacBook ever", Price = 299.99m, Quantity = 2 },
-                new Product() {Id ="4",Name = "AirPods Pro", Description = "The best wireless earbuds on the market", Price = 249.99m, Quantity = 15 },
-                new Product() {Id ="5",Name = "Apple Watch Series 7", Description = "The most advanced smartwatch ever", Price = 399.99m, Quantity = 10 }
-            };
-
-            // Add some dummy data to the list
-
+        private readonly StoreDBContext _db;
+        public ProductService(StoreDBContext db)
+        {           
+            _db = db;
         }
-        public bool AddProduct(Product product)
+        public async Task<bool> AddProduct(Product product)
         {
-            _products.Add(product);
-            return true;
+            await _db.Products.AddAsync(product);
+            var created = await _db.SaveChangesAsync();
+            return created > 0;
         }
 
-        public bool DeleteProduct(string id)
+        public async Task<bool> DeleteProduct(string id)
         {
-            var productToDelete = GetProduct(id);
+            var productToDelete = await GetProduct(id);
             if (productToDelete == null)
             {
                 return false;
             }
-            return _products.Remove(productToDelete);
+             _db.Products.Remove(productToDelete);
+           var deleted = await _db.SaveChangesAsync();
+            return deleted > 0;
         }
 
-        public Product? GetProduct(string id)
+        public async Task<Product?> GetProduct(string id)
         {
-            return _products.FirstOrDefault(x => x.Id == id);
+            return await _db.Products.FindAsync(id);
         }
 
-        public List<Product> GetProducts()
+        public async Task<List<Product>> GetProducts()
         {
-
-            return _products;
+            return await _db.Products.ToListAsync();
         }
 
-        public bool UpdateProduct(Product product)
+        public async Task<bool> UpdateProduct(Product product)
         {
-            if (GetProduct(product.Id) == null)
+            if (await GetProduct(product.Id.ToString()) == null)
             {
                 return false;
             }
-            var index = _products.FindIndex(i => i.Id == product.Id);
-            _products[index] = product;
-            return true;
-
+            _db.Products.Update(product);
+           var updated = await _db.SaveChangesAsync();
+            return updated > 0;
         }
-
-
     }
 }

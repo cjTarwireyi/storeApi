@@ -4,10 +4,10 @@ namespace store.DataLayer.Services
 {
     public interface IProductService
     {
-        List<Product> GetProducts();
-        Product? GetProduct(string id);
-        bool AddProduct(Product product);
-        bool UpdateProduct(Product product);
-        bool DeleteProduct(string id);    
+        Task<List<Product>> GetProducts();
+        Task<Product?> GetProduct(string id);
+        Task<bool> AddProduct(Product product);
+        Task<bool> UpdateProduct(Product product);
+        Task<bool> DeleteProduct(string id);    
     }
 }

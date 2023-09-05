@@ -22,9 +22,9 @@ namespace store.Api.Controllers.V1
         /// </summary>
         /// <returns>All Products</returns>
         [HttpGet]
-        public ActionResult GetProducts()
+        public async Task<ActionResult> GetProducts()
         {
-            return Ok(_service.GetProducts());
+            return Ok(await _service.GetProducts());
         }
 
         /// <summary>
@@ -33,9 +33,9 @@ namespace store.Api.Controllers.V1
         /// <param name="productId"></param>
         /// <returns>Single Product</returns>
         [HttpGet("{productId}", Name = "GetProduct")]
-        public ActionResult GetProduct( string productId)
+        public async Task<ActionResult> GetProduct( string productId)
         {
-            var product = _service.GetProduct(productId);
+            var product = await _service.GetProduct(productId);
             if(product == null)
             {
                 return NotFound();
@@ -57,7 +57,7 @@ namespace store.Api.Controllers.V1
         /// <param name="productRequest"></param>
         /// <returns>Created product</returns>
         [HttpPost]
-        public ActionResult Create([FromBody] CreateProductRequest productRequest)
+        public async Task<ActionResult> Create([FromBody] CreateProductRequest productRequest)
         {
             var product = new Product
             {
@@ -65,12 +65,12 @@ namespace store.Api.Controllers.V1
                 Description = productRequest.Description,
                 Price = productRequest.Price,
                 Quantity = productRequest.Quantity,
-                Id = Guid.NewGuid().ToString()
+                Id = Guid.NewGuid()
             };
 
-            _service.AddProduct(product);
+            await _service.AddProduct(product);
 
-            var response = new CreateProductResponse { Id = product.Id };
+            var response = new CreateProductResponse { Id = product.Id.ToString() };
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
             var locationUri = baseUrl + "/" + ApiRoutes.Products.Get.Replace("{productId}", response.Id);
@@ -83,7 +83,7 @@ namespace store.Api.Controllers.V1
         /// <param name="productRequest"></param>
         /// <returns>updated product</returns>
         [HttpPut]
-        public ActionResult Update(string productId, [FromBody] UpdateProductRequest productRequest)
+        public async Task<ActionResult> Update(string productId, [FromBody] UpdateProductRequest productRequest)
         {
             var product = new Product
             {
@@ -91,10 +91,10 @@ namespace store.Api.Controllers.V1
                 Description = productRequest.Description,
                 Price = productRequest.Price,
                 Quantity = productRequest.Quantity,
-                Id = productId.ToString()
+                Id = new Guid(productId)
             };
 
-            var updated =   _service.UpdateProduct(product);
+            var updated =  await _service.UpdateProduct(product);
 
             if (updated)
             {
