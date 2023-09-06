@@ -8,10 +8,15 @@ namespace store.DataLayer.Model
     {
         [Key]
         public Guid Id { get; set; }
+        [MaxLength(100)]
         public string Name { get; set; }
+        [MaxLength(500)]
         public string Description { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
-        public int Quantity { get; set; }
+        public int Quantity { get; set; }        
+        public DateTime? LastModifiedDate { get; set; }
+        [MaxLength(100)]
+        public string? LastModifiedUser { get; set; }
     }
 }
