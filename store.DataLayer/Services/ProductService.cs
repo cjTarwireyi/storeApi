@@ -13,6 +13,7 @@ namespace store.DataLayer.Services
         }
         public async Task<bool> AddProduct(Product product)
         {
+            await DuplicateCheck(product);
             await _db.Products.AddAsync(product);
             var created = await _db.SaveChangesAsync();
             return created > 0;
@@ -42,6 +43,7 @@ namespace store.DataLayer.Services
 
         public async Task<bool> UpdateProduct(Product product)
         {
+            await DuplicateCheck(product);
             if (await GetProduct(product.Id.ToString()) == null)
             {
                 return false;
@@ -49,6 +51,13 @@ namespace store.DataLayer.Services
             _db.Products.Update(product);
            var updated = await _db.SaveChangesAsync();
             return updated > 0;
+        }
+        private async Task DuplicateCheck(Product product)
+        {
+            if (await _db.Products.AnyAsync(x => x.ProductCode == product.ProductCode && x.Id != product.Id))
+            {
+                throw new DuplicateWaitObjectException("Duplicate Product found in the database");
+            }
         }
     }
 }
