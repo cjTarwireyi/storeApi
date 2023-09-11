@@ -12,5 +12,13 @@ namespace store.Api.Data
 
         }
         public DbSet<Product> Products { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Product>(entity =>
+            {
+                entity.HasIndex(e => e.ProductCode).IsUnique();
+            });
+            base.OnModelCreating(builder);
+        }
     }
 }
