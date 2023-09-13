@@ -12,14 +12,14 @@ namespace store.Api.Data
 
         }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Sale> Sales { get; set; }
+        public DbSet<Order> Sales { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Product>(entity =>
             {
                 entity.HasIndex(e => e.ProductCode).IsUnique();
             });
-            builder.Entity<Sale>(entity =>
+            builder.Entity<Order>(entity =>
             {
                 entity.HasIndex(e => e.ProductId)
                 .IsUnique();

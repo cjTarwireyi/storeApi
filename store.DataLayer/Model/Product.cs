@@ -8,6 +8,7 @@ namespace store.DataLayer.Model
     {
         [Key]
         public Guid Id { get; set; }
+        public Guid CategoryId { get; set; }
         public string? ProductCode { get; set; }
         [MaxLength(100)]
         public string Name { get; set; }
