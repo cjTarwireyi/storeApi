@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.Hosting;
 using store.DataLayer.Model;
+using System.Reflection.Emit;
 
 namespace store.Api.Data
 {
-    public class StoreDBContext: IdentityDbContext
+    public class StoreDBContext : IdentityDbContext
     {
         public StoreDBContext(DbContextOptions<StoreDBContext> options)
-            :base(options)
+            : base(options)
         {
 
         }
@@ -19,15 +22,11 @@ namespace store.Api.Data
             {
                 entity.HasIndex(e => e.ProductCode).IsUnique();
             });
-            builder.Entity<Order>(entity =>
-            {
-                entity.HasIndex(e => e.ProductId)
-                .IsUnique();
-
-                //entity.HasOne(e => e.ProductId)
-                //.WithOne()
-                //.HasForeignKey(e => e.ProductId);
-            });
+            builder.Entity<Order>()
+                .HasOne(order => order.Product)
+                .WithMany(product => product.Orders)
+                .HasForeignKey(order => order.ProductId)
+                .HasPrincipalKey(order => order.Id);
             base.OnModelCreating(builder);
         }
     }
