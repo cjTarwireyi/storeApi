@@ -32,8 +32,14 @@ namespace store.Api.Data
             builder.Entity<Order>()
                 .HasOne(order => order.Customer)
                 .WithMany(customer => customer.Orders)
-                .HasForeignKey(order=> order.CustomerId)
-                .HasPrincipalKey(customer => customer.CustomerID)
+                .HasForeignKey(order => order.CustomerId)
+                .HasPrincipalKey(customer => customer.Id);
+
+            builder.Entity<Product>()
+                .HasOne(product => product.Category)
+                .WithMany(category => category.Products)
+                .HasForeignKey(product => product.CategoryId)
+                .HasPrincipalKey(category => category.Id);
             base.OnModelCreating(builder);
         }
     }

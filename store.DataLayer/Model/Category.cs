@@ -10,11 +10,14 @@ namespace store.DataLayer.Model
     public class ProductCategory
     {
         public Guid Id { get; set; }
+        [MaxLength(100)]
         public string Name { get; set; }
+        [MaxLength(500)]
         public string Description { get; set; }
         public DateTime? LastModifiedDate { get; set; }
         [MaxLength(100)]
         public string? LastModifiedUser { get; set; }
+        public List<Product> Products { get; set; }
     }
-}
+
 }

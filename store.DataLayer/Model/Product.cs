@@ -22,5 +22,6 @@ namespace store.DataLayer.Model
         [MaxLength(100)]
         public string? LastModifiedUser { get; set; }
         public List<Order> Orders { get; set; }
+        public Category Category { get; set; }
     }
 }
