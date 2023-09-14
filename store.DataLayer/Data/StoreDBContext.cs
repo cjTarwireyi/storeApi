@@ -22,11 +22,18 @@ namespace store.Api.Data
             {
                 entity.HasIndex(e => e.ProductCode).IsUnique();
             });
+
             builder.Entity<Order>()
                 .HasOne(order => order.Product)
                 .WithMany(product => product.Orders)
                 .HasForeignKey(order => order.ProductId)
-                .HasPrincipalKey(order => order.Id);
+                .HasPrincipalKey(product => product.Id);
+
+            builder.Entity<Order>()
+                .HasOne(order => order.Customer)
+                .WithMany(customer => customer.Orders)
+                .HasForeignKey(order=> order.CustomerId)
+                .HasPrincipalKey(customer => customer.CustomerID)
             base.OnModelCreating(builder);
         }
     }

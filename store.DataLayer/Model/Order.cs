@@ -13,7 +13,8 @@ namespace store.DataLayer.Model
     {
         [Key]
         public Guid Id { get; set; }      
-        public Guid CustomerID { get; set; }
+        public Guid CustomerId { get; set; }
+        public string OrderNumber { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public DateTime OrderDate { get; set; }
@@ -21,5 +22,6 @@ namespace store.DataLayer.Model
         public Guid ProductId { get; set; }
 
         public Product Product { get; set; }
+        public Customer Customer { get; set; }
     }
 }
