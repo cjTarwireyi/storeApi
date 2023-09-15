@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace store.DataLayer.Model
 {
-    public class ProductCategory
+    public class Category
     {
         public Guid Id { get; set; }
         [MaxLength(100)]
