@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace store.DataLayer.Services
 {
-    internal interface ICategory
+    public interface ICategoryService
     {
         Task<List<Category>> GetCategories();
         Task<Category?> GetCategory(string id);

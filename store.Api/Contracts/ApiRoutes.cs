@@ -7,9 +7,15 @@
         private const  string Base = $"{root}/{version}";
         public static class Products
         {
-            public const string GetAll = $"{Base}/products/";
+            public const string GetAll = $"{Base}/product/";
         
             public const string Get ="{productId}";
+        }
+        public static class Category
+        {
+            public const string GetAll = $"{Base}/category/";
+        
+            public const string Get ="{categoryId}";
         }
     }
 }

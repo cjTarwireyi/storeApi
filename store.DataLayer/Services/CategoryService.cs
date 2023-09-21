@@ -2,7 +2,7 @@
 
 namespace store.DataLayer.Services
 {
-    internal class CategoryService : ICategory
+    internal class CategoryService : ICategoryService
     {
         public Task<bool> AddCategory(Category Category)
         {
