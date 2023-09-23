@@ -2,7 +2,7 @@
 
 namespace store.DataLayer.Services
 {
-    internal interface IOrderService
+    public interface IOrderService
     {
         Task<List<Order>> GetOrders();
         Task<Order?> GetOrder(string id);

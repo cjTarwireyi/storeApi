@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using store.Api.Contracts.V1.Requests;
 using store.Api.Contracts.V1.Responses;
 using store.Api.Contracts;

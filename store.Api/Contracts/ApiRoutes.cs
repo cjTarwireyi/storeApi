@@ -17,5 +17,11 @@
         
             public const string Get ="{categoryId}";
         }
+        public static class Order
+        {
+            public const string GetAll = $"{Base}/order/";
+        
+            public const string Get ="{orderId}";
+        }
     }
 }
