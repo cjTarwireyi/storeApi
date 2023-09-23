@@ -35,6 +35,7 @@ namespace store.Api.Controllers.V1
         [HttpGet("{OrderId}", Name = "GetOrder")]
         public async Task<ActionResult> GetOrder(string orderId)
         {
+
             var order = await _service.GetOrder(orderId);
             if (order == null)
             {
