@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.Extensions.Hosting;
 using store.DataLayer.Model;
-using System.Reflection.Emit;
 
 namespace store.Api.Data
 {
@@ -15,7 +12,8 @@ namespace store.Api.Data
 
         }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Order> Sales { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Category> Categories { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Product>(entity =>

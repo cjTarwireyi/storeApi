@@ -1,32 +1,52 @@
-﻿using store.DataLayer.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using store.Api.Data;
+using store.DataLayer.Model;
 
 namespace store.DataLayer.Services
 {
     internal class CategoryService : ICategoryService
     {
-        public Task<bool> AddCategory(Category Category)
+        private readonly StoreDBContext _db;
+
+        public CategoryService(StoreDBContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
+        }
+        public async Task<bool> AddCategory(Category Category)
+        {
+            _db.Categories.Add(Category);
+            return await _db.SaveChangesAsync() > 0;
         }
 
-        public Task<bool> DeleteCategory(string id)
+        public async Task<bool> DeleteCategory(string id)
         {
-            throw new NotImplementedException();
+            var categoryToRemopve = await GetCategory(id);
+
+            _db.Categories.Remove(categoryToRemopve);
+
+            return await _db.SaveChangesAsync() > 0;
         }
 
-        public Task<List<Category>> GetCategories()
+        public async Task<List<Category>> GetCategories()
         {
-            throw new NotImplementedException();
+            return await _db.Categories.ToListAsync();
         }
 
-        public Task<Category?> GetCategory(string id)
+        public async Task<Category?> GetCategory(string id)
         {
-            throw new NotImplementedException();
+            var category = await _db.Categories.FindAsync(id);
+
+            if (category == null)
+                throw new Exception("Category awas not found");
+
+            return category;
         }
 
-        public Task<bool> UpdateCategory(Category Category)
+        public async Task<bool> UpdateCategory(Category category)
         {
-            throw new NotImplementedException();
+            await GetCategory(category.Id.ToString());
+            _db.Categories.Update(category);
+            return await _db.SaveChangesAsync() > 0;
         }
     }
 }

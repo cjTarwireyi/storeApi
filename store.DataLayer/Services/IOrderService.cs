@@ -6,8 +6,8 @@ namespace store.DataLayer.Services
     {
         Task<List<Order>> GetOrders();
         Task<Order?> GetOrder(string id);
-        Task<bool> AddOrder(Order Order);
-        Task<bool> UpdateOrder(Order Order);
+        Task<bool> AddOrder(Order order);
+        Task<bool> UpdateOrder(Order order);
         Task<bool> DeleteOrder(string id);
     }
 }

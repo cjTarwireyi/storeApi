@@ -1,37 +1,53 @@
-﻿using store.DataLayer.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using store.Api.Data;
+using store.DataLayer.Model;
 
 namespace store.DataLayer.Services
 {
     internal class OrderService : IOrderService
     {
-        public Task<bool> AddOrder(Order Order)
+        private readonly StoreDBContext _db;
+
+        public OrderService(StoreDBContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
         }
 
-        public Task<bool> DeleteOrder(string id)
+        public async Task<bool> AddOrder(Order order)
         {
-            throw new NotImplementedException();
+            _db.Orders.Add(order);
+            return await _db.SaveChangesAsync() > 0;
         }
 
-        public Task<Order?> GetOrder(string id)
+        public async Task<bool> DeleteOrder(string id)
         {
-            throw new NotImplementedException();
+            var orderToRemopve = await GetOrder(id);
+
+            _db.Orders.Remove(orderToRemopve);
+
+            return await _db.SaveChangesAsync() > 0;
         }
 
-        public Task<List<Order>> GetOrders()
+        public async Task<Order?> GetOrder(string id)
         {
-            throw new NotImplementedException();
+            var order= await _db.Orders.FindAsync(id);
+
+            if (order== null)
+                throw new Exception("Order awas not found");
+
+            return order;
         }
 
-        public Task<bool> UpdateOrder(Order Order)
+        public async Task<List<Order>> GetOrders()
         {
-            throw new NotImplementedException();
+          return await _db.Orders.ToListAsync();
+        }
+
+        public async Task<bool> UpdateOrder(Order order)
+        {
+            await GetOrder(order.Id.ToString());
+            _db.Orders.Update(order);
+            return await _db.SaveChangesAsync() > 0;
         }
     }
 }
