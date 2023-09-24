@@ -40,6 +40,7 @@ namespace store.Api.Data
                 .WithMany(category => category.Products)
                 .HasForeignKey(product => product.CategoryId)
                 .HasPrincipalKey(category => category.Id);
+
             base.OnModelCreating(builder);
         }
     }
