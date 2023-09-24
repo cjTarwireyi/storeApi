@@ -21,9 +21,9 @@ namespace store.DataLayer.Services
 
         public async Task<bool> DeleteOrder(string id)
         {
-            var orderToRemopve = await GetOrder(id);
+            var orderToRemove = await GetOrder(id);
 
-            _db.Orders.Remove(orderToRemopve);
+            _db.Orders.Remove(orderToRemove);
 
             return await _db.SaveChangesAsync() > 0;
         }

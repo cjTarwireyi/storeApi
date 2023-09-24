@@ -6,8 +6,8 @@ namespace store.DataLayer.Services
     {
         Task<List<Category>> GetCategories();
         Task<Category?> GetCategory(string id);
-        Task<bool> AddCategory(Category Category);
-        Task<bool> UpdateCategory(Category Category);
+        Task<bool> AddCategory(Category category);
+        Task<bool> UpdateCategory(Category category);
         Task<bool> DeleteCategory(string id);
     }
 }

@@ -21,19 +21,22 @@ namespace store.DataLayer.Services
 
         public async Task<bool> DeleteProduct(string id)
         {
-            var productToDelete = await GetProduct(id);
-            if (productToDelete == null)
+            var productToRemove = await GetProduct(id);
+            if (productToRemove== null)
             {
                 return false;
             }
-             _db.Products.Remove(productToDelete);
+             _db.Products.Remove(productToRemove);
            var deleted = await _db.SaveChangesAsync();
             return deleted > 0;
         }
 
         public async Task<Product?> GetProduct(string id)
         {
-            return await _db.Products.FindAsync(id);
+            var product = await _db.Products.FindAsync(id);
+            if (product == null)
+                throw new Exception("Product awas not found");
+            return product;
         }
 
         public async Task<List<Product>> GetProducts()

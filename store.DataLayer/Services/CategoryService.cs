@@ -20,9 +20,9 @@ namespace store.DataLayer.Services
 
         public async Task<bool> DeleteCategory(string id)
         {
-            var categoryToRemopve = await GetCategory(id);
+            var categoryToRemove = await GetCategory(id);
 
-            _db.Categories.Remove(categoryToRemopve);
+            _db.Categories.Remove(categoryToRemove);
 
             return await _db.SaveChangesAsync() > 0;
         }
