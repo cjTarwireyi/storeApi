@@ -2,7 +2,7 @@
 
 namespace store.DataLayer.Services
 {
-    internal interface ICustomerService
+    public interface ICustomerService
     {
         Task<List<Customer>> GetCustomers();
         Task<Customer?> GetCustomer(string id);
