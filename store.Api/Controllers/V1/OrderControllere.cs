@@ -81,7 +81,7 @@ namespace store.Api.Controllers.V1
             var response = new CreateOrderResponse { Id = order.Id};
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-            var locationUri = baseUrl + "/" + ApiRoutes.Order.Get.Replace("{orderId}", response.Id.ToString());
+            var locationUri = baseUrl + "/" + ApiRoutes.OrderRoutes.Get.Replace("{orderId}", response.Id.ToString());
             return Created(locationUri, response);
         }
         /// <summary>

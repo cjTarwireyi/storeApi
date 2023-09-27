@@ -7,7 +7,7 @@ using store.DataLayer.Services;
 
 namespace store.Api.Controllers.V1
 {
-    [Route(ApiRoutes.Products.GetAll)]
+    [Route(ApiRoutes.ProductsRoutes.GetAll)]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -73,7 +73,7 @@ namespace store.Api.Controllers.V1
             var response = new CreateProductResponse { Id = product.Id.ToString() };
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-            var locationUri = baseUrl + "/" + ApiRoutes.Products.Get.Replace("{productId}", response.Id);
+            var locationUri = baseUrl + "/" + ApiRoutes.ProductsRoutes.Get.Replace("{productId}", response.Id);
             return Created(locationUri, response);
         }
         /// <summary>

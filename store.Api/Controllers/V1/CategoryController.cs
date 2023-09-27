@@ -72,7 +72,7 @@ namespace store.Api.Controllers.V1
             var response = new CreateCategoryResponse { Id = category.Id.ToString() };
 
             var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-            var locationUri = baseUrl + "/" + ApiRoutes.Category.Get.Replace("{categoryId}", response.Id);
+            var locationUri = baseUrl + "/" + ApiRoutes.CategoryRoutes.Get.Replace("{categoryId}", response.Id);
             return Created(locationUri, response);
         }
         /// <summary>
