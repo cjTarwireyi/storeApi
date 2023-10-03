@@ -2,7 +2,7 @@
 
 namespace store.DataLayer.Model
 {
-    internal class Employee
+    public class Employee
     {
         public Guid Id { get; set; }
         [MaxLength(13)]

@@ -2,7 +2,7 @@
 
 namespace store.DataLayer.Services
 {
-    internal interface IEmployeeService
+    public interface IEmployeeService
     {
         Task<List<Employee>> GetEmployees();
         Task<Employee?> GetEmployee(string id);
