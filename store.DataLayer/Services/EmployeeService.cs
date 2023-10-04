@@ -1,4 +1,5 @@
-﻿using store.DataLayer.Model;
+﻿using store.Api.Data;
+using store.DataLayer.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,15 @@ namespace store.DataLayer.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        public Task<bool> AddEmployee(Employee customer)
+        private readonly StoreDBContext _db;
+        public EmployeeService(StoreDBContext context)
         {
-            throw new NotImplementedException();
+            _db = context;
+        }
+        public async Task<bool> AddEmployee(Employee employee)
+        {
+            _db.Employees.Add(employee);
+            return await _db.SaveChangesAsync() > 0;
         }
 
         public Task<bool> DeleteEmployee(string id)
@@ -29,7 +36,7 @@ namespace store.DataLayer.Services
             throw new NotImplementedException();
         }
 
-        public Task<bool> UpdateEmployee(Employee customer)
+        public Task<bool> UpdateEmployee(Employee employee)
         {
             throw new NotImplementedException();
         }
