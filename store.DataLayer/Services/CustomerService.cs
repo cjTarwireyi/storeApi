@@ -38,7 +38,7 @@ namespace store.DataLayer.Services
             var customer = await _db.Customers.FindAsync(id);
 
             if (customer == null)
-                throw new Exception("Costomer awas not found");
+                throw new Exception("Customer awas not found");
 
             return customer;
         }

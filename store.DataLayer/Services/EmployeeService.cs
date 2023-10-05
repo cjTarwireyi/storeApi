@@ -1,4 +1,5 @@
-﻿using store.Api.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using store.Api.Data;
 using store.DataLayer.Model;
 using System;
 using System.Collections.Generic;
@@ -26,14 +27,20 @@ namespace store.DataLayer.Services
             throw new NotImplementedException();
         }
 
-        public Task<Employee?> GetEmployee(string id)
+        public async Task<Employee?> GetEmployee(string id)
         {
-            throw new NotImplementedException();
+            var employee = await _db.Employees.FindAsync(id);
+
+            if (employee == null)
+                throw new Exception("Employee awas not found");
+
+            return employee;
+           
         }
 
-        public Task<List<Employee>> GetEmployees()
+        public async Task<List<Employee>> GetEmployees()
         {
-            throw new NotImplementedException();
+            return await _db.Employees.ToListAsync();
         }
 
         public Task<bool> UpdateEmployee(Employee employee)
